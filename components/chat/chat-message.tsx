@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, Image } from "react-native";
 import {
   ChatCompletionMessageOrReactElement,
   ChatCompletionMessageParam,
@@ -52,11 +52,13 @@ const MessageContent = ({
 
   const m = message as ChatCompletionMessageParam;
 
-  if (m.role === "function") {
+  if (m.role === "system") {
+    return null;
+  } else if (m.role === "function") {
     return (
       <View style={{ opacity: 0.4 }}>
         <Text>Only seen by the model:</Text>
-        <Text>{m.content?.toString().slice(0, 100)}...</Text>
+        <Text>{m.content?.toString()}</Text>
       </View>
     );
   }
