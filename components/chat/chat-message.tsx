@@ -52,15 +52,8 @@ const MessageContent = ({
 
   const m = message as ChatCompletionMessageParam;
 
-  if (m.role === "system") {
+  if (m.role === "system" || m.role === "function") {
     return null;
-  } else if (m.role === "function") {
-    return (
-      <View style={{ opacity: 0.4 }}>
-        <Text>Only seen by the model:</Text>
-        <Text>{m.content?.toString()}</Text>
-      </View>
-    );
   }
 
   return <ChatBubble message={m} />;

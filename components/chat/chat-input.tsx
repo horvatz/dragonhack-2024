@@ -28,10 +28,8 @@ const ChatInput = ({
     // No need to manually handle permissions with expo-image-picker
     const result = await ImagePicker.launchCameraAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      // allowsEditing: true,
-      // aspect: [4, 3],
       base64: true,
-      quality: 1,
+      quality: 0,
     });
 
     if (!result.canceled) {
