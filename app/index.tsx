@@ -5,7 +5,7 @@ import SearchingLocation from "../components/loaders/searching-location";
 import LocationMap from "../components/location-map";
 import LoadingWeather from "../components/loaders/weather";
 import Weather from "../components/weather";
-import React from "react";
+import React, { useState } from "react";
 import { fetchWeatherData } from "../utils/fetch-weather-data";
 import { fetchLocation } from "../utils/fetch-reverse-geocode";
 import ChatInput from "../components/chat/chat-input";
@@ -112,20 +112,26 @@ export default function App() {
     },
   });
 
-  const [image, setImage] = React.useState(null);
+  // Base64 of image
+  const [image, setImage] = useState<string | null>(null);
 
   const openCamera = async () => {
     // No need to manually handle permissions with expo-image-picker
-    let result = await ImagePicker.launchCameraAsync({
+    const result = await ImagePicker.launchCameraAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      aspect: [4, 3],
+      // allowsEditing: true,
+      // aspect: [4, 3],
+      base64: true,
       quality: 1,
     });
 
+    console.log({ result });
     if (!result.canceled) {
-      // setImage(result.uri);
-      console.log("Set image");
+      if (result.assets[0].base64) {
+        // Set base64 of image
+        console.log("Setting image");
+        setImage(result.assets[0].base64);
+      }
     }
   };
 
