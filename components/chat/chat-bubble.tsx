@@ -15,9 +15,38 @@ const ChatBubble = ({ message }: ChatBubbleProps) => {
     return <Text>- Message content is empty -</Text>;
   }
 
-  const isImage = message.content[0].type === "image_url";
-  const isText =
-    typeof message.content === "string" || message.content[0].type === "text";
+  const getText = () => {
+    const content = message.content;
+    if (!content) return null;
+
+    if (typeof content === "string") {
+      return content;
+    }
+
+    if (content[0]?.type === "text") {
+      return content[0].text;
+    }
+
+    if (content[1]?.type === "text") {
+      return content[1].text;
+    }
+  };
+
+  const getImage = () => {
+    const content = message.content;
+    if (!content || typeof content === "string") return null;
+
+    if (content[0]?.type === "image_url") {
+      return content[0].image_url.url;
+    }
+
+    if (content[1]?.type === "image_url") {
+      return content[1].image_url.url;
+    }
+  };
+
+  const text = getText();
+  const image = getImage();
 
   return (
     <View
@@ -38,17 +67,17 @@ const ChatBubble = ({ message }: ChatBubbleProps) => {
         </View>
       )}
       <View className="flex flex-col gap-y-4">
-        {isImage && (
+        {image && (
           <Image
-            className="w-20 h-40 bg-red-400"
-            source={{ uri: message.content[0].image_url.url }}
+            className="w-20 rounded-2xl aspect-square"
+            source={{ uri: image }}
           />
         )}
-        {isText && (
+        {text && (
           <MarkdownDisplay
             textColor={message.role === "user" ? "white" : "black"}
           >
-            {typeof message.content === "string" ? message.content : ""}
+            {text}
           </MarkdownDisplay>
         )}
       </View>
