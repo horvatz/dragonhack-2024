@@ -135,13 +135,21 @@ export default function App() {
       // allowsEditing: true,
       // aspect: [4, 3],
       base64: true,
-      quality: 1,
+      quality: 0,
     });
 
     if (!result.canceled) {
       if (result.assets[0].base64) {
         // Set base64 of image
-        console.log("Setting image");
+        console.log({ asset: result.assets[0].base64.slice(0, 100) });
+        handleSubmit([
+          {
+            type: "image_url",
+            image_url: {
+              url: `data:image/jpeg;base64,${result.assets[0].base64}`,
+            },
+          },
+        ]);
         setImage(result.assets[0].base64);
       }
     }
