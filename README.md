@@ -1,52 +1,43 @@
-# AI Weather Chat (react-native-gen-ui example)
+# Fashion clothing assistant :tshirt:(Dragonhack 2024 project)
 
-This repository serves as an example usage of the open-source React Native package called `react-native-gen-ui`. The package facilitates the integration of AI chat capabilities into React Native applications. In this example, we demonstrate how to effectively utilize the tools provided by `react-native-gen-ui` to obtain the user's location and fetch weather information based on that location.
+Virtual fashion assistant mobile app, designed to provide friendly and personalized style advice.
 
-![weather-example-gif](docs/weather-example-min.gif)
+- User can **upload an image** of their **outfit** and **ocassion**
+- Assistant will **rate it** (based on provided ocassion) offering feedback on style
+- Assistant will also provide **recommendations** to improve style
+  - Recommendations are provided with products from [ASOS webstore](https://website-name.com)
 
-## Features
+## Technologies and APIs used :books:
 
-- Integration of AI chat functionality
-- Retrieval of user's location
-- Fetching weather information based on the user's location
+- [React Native](https://reactnative.dev/) + [Expo](https://expo.dev/)
+- [Typescript](https://www.typescriptlang.org/)
+- [OpenAI API](https://openai.com/): for ChatGPT assistant
+- [Rapid API](https://rapidapi.com/): for [ASOS webstore](https://www.asos.com/) product recommendations
 
-## Usage
+## Getting started :hammer:
 
-To run the example application:
+Before you begin, add following environment variables to `.env`:
 
-1. Clone this repository to your local machine.
-2. Navigate to the root directory of the cloned repository.
-3. Install dependencies using `npm install` or `yarn install`.
-4. Ensure you have the necessary environment variables set up, including `EXPO_PUBLIC_OPENAI_API_KEY` and `EXPO_PUBLIC_OPENAI_MODEL`.
-5. Run the application using `expo start`.
+```bash
+EXPO_PUBLIC_OPENAI_API_KEY=<your_openai_api_key>
+EXPO_PUBLIC_RAPID_API_KEY=<rapid_api_key>
+EXPO_PUBLIC_RAPID_API_HOST=<rapid_api_host>
+```
 
-## Code Overview
+First install dependencies:
 
-The main code of the application can be found in the `App.js` file. Here's a brief overview of its functionality:
+```bash
+yarn install
+```
 
-- Initialization of `OpenAI` instance with appropriate API key and model.
-- Integration of chat functionality using `useChat` hook provided by `react-native-gen-ui`.
-- Implementation of tools for obtaining location and fetching weather data.
-- Rendering of chat interface with message components and user input field.
+To run app use:
 
-## Dependencies
+```bash
+yarn ios        # To run app on iOS
+yarn android    # To run app on Android
+yarn start      # To test app with Expo
+```
 
-This example application relies on the following dependencies:
+## Architecture :triangular_ruler:
 
-- `react-native-gen-ui`: Open-source React Native package for integrating AI chat functionality.
-- `expo-location`: For accessing device location information.
-- `zod`: For parameter validation in tool implementations.
-- Other dependencies for UI components and utilities.
-
-## Resources
-
-- [Original `react-native-gen-ui` Repository](https://github.com/zerodays/react-native-gen-ui): Link to the original library package repository.
-- [`react-native-gen-ui` on npm](https://www.npmjs.com/package/react-native-gen-ui): npm package link for `react-native-gen-ui`.
-
-## License
-
-This example application is licensed under the [MIT License](LICENSE).
-
----
-
-Feel free to explore the code and adapt it to suit your needs! If you encounter any issues or have suggestions for improvements, please don't hesitate to open an issue or submit a pull request.
+TODO
