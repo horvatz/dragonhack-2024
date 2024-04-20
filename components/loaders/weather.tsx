@@ -3,7 +3,7 @@ import LottieView from "lottie-react-native";
 import React from "react";
 import WeatherLoading from "../../assets/loading/weather.json";
 
-const LoadingWeather = () => {
+const SearchingClothes = () => {
   return (
     <View className="w-32 h-16 -ml-5">
       <LottieView
@@ -20,4 +20,4 @@ const LoadingWeather = () => {
   );
 };
 
-export default LoadingWeather;
+export default SearchingClothes;
