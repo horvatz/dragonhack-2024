@@ -112,6 +112,7 @@ export default function App() {
       />
       <ChatInput
         input={input}
+        setInput={onInputChange}
         isStreaming={isStreaming}
         isLoading={isLoading}
         onInputChange={onInputChange}
