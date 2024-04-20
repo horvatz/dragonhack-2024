@@ -73,7 +73,7 @@ const RatingBar = ({
       <Text className="text-lg font-semibold text-sky-600">{label}</Text>
       <View className="relative flex items-start w-full overflow-hidden bg-gray-200 justify-stretch grow basis-0 rounded-xl">
         <Animated.View
-          className="relative h-full overflow-hidden"
+          className="relative h-full overflow-hidden rounded-xl"
           style={animatedStyles}
         >
           <LinearGradient
@@ -84,6 +84,8 @@ const RatingBar = ({
               right: 0,
               bottom: 0,
             }}
+            start={[0, 1]}
+            end={[1, 0]}
             colors={[colors.sky[300], colors.sky[500]]}
           />
           <AnimatedNumbers
@@ -92,7 +94,7 @@ const RatingBar = ({
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-              top: 0,
+              top: 4,
               bottom: 0,
               right: 10,
             }}
