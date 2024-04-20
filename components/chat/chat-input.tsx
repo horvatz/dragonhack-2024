@@ -61,7 +61,7 @@ const ChatInput = ({
       <View className="relative bg-white border border-gray-300 rounded-3xl grow basis-0">
         {image && (
           <Image
-            className="w-20 mx-4 mt-4 rounded-2xl aspect-square"
+            className="w-20 h-20 mx-4 mt-4 rounded-2xl"
             source={{ uri: image }}
           />
         )}

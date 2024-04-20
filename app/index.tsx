@@ -9,6 +9,7 @@ import { systemPrompt } from "../utils/constants";
 import ChatInput from "../components/chat/chat-input";
 import RatingBarchart from "../components/rating-barchart";
 import Recommendations from "../components/recommendations";
+import { fetchRecommendations } from "../utils/fetch-recommendations";
 
 const openAi = new OpenAI({
   apiKey: process.env.EXPO_PUBLIC_OPENAI_API_KEY ?? "",
@@ -73,24 +74,9 @@ export default function App() {
         render: async function* (args) {
           yield <SearchingClothes />;
 
-          // const clothingRecommendation = await fetchRecommendations(args.category);
-          const clothingRecommendation = [
-            {
-              category: "top",
-              name: "T-shirt",
-              image: "https://example.com/tshirt.jpg",
-            },
-            {
-              category: "bottom",
-              name: "Jeans",
-              image: "https://example.com/jeans.jpg",
-            },
-            {
-              category: "shoes",
-              name: "Sneakers",
-              image: "https://example.com/sneakers.jpg",
-            },
-          ];
+          const clothingRecommendation = await fetchRecommendations(
+            args.searchQuery
+          );
 
           return {
             component: (
@@ -131,8 +117,6 @@ export default function App() {
         onInputChange={onInputChange}
         onSubmit={(msg: string, image: string | null) => {
           if (image) {
-            // TODO: remove ts-ignore when library is fixed
-            // @ts-ignore
             handleSubmit([
               {
                 type: "image_url",

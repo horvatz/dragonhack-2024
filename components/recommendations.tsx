@@ -1,14 +1,9 @@
 import React from "react";
 import { View, Text, Image } from "react-native";
-
-type ClothingArticle = {
-  category: string;
-  name: string;
-  image: string;
-};
+import { ProductInternal } from "../utils/fetch-recommendations";
 
 interface RecommendationsProps {
-  recommendations: ClothingArticle[];
+  recommendations: ProductInternal[];
 }
 
 const Recommendations = ({ recommendations }: RecommendationsProps) => {
@@ -32,13 +27,13 @@ const Recommendations = ({ recommendations }: RecommendationsProps) => {
 const Recommendation = ({
   recommendation,
 }: {
-  recommendation: ClothingArticle;
+  recommendation: ProductInternal;
 }) => {
   return (
     <View className="flex flex-col items-center gap-y-2">
       <View className="w-32 h-32">
         <Image
-          source={{ uri: recommendation.image }}
+          source={{ uri: recommendation.imageUrl }}
           resizeMode="cover"
           style={{
             width: "100%",
@@ -50,7 +45,7 @@ const Recommendation = ({
         {recommendation.name}
       </Text>
       <Text className="text-sm font-semibold text-gray-600">
-        {recommendation.category}
+        {recommendation.brandName}
       </Text>
     </View>
   );
