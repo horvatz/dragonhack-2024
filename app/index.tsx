@@ -1,11 +1,11 @@
-import { FlatList, View } from "react-native";
+import { FlatList, TouchableOpacity, View } from "react-native";
 import { OpenAI, useChat } from "react-native-gen-ui";
 import { z } from "zod";
 import SearchingLocation from "../components/loaders/searching-location";
 import LocationMap from "../components/location-map";
 import LoadingWeather from "../components/loaders/weather";
 import Weather from "../components/weather";
-import React from "react";
+import React, { useState } from "react";
 import { fetchWeatherData } from "../utils/fetch-weather-data";
 import { fetchLocation } from "../utils/fetch-reverse-geocode";
 import ChatInput from "../components/chat/chat-input";
@@ -13,6 +13,9 @@ import ChatSubmitButton from "../components/chat/chat-submit-button";
 import ChatContainer from "../components/chat/chat-container";
 import ChatMessage from "../components/chat/chat-message";
 import { getDeviceLocation } from "../utils/get-device-location";
+import { Camera as CameraIcon } from "lucide-react-native";
+import colors from "tailwindcss/colors";
+import { Camera, CameraType } from "expo-camera";
 
 const openAi = new OpenAI({
   apiKey: process.env.EXPO_PUBLIC_OPENAI_API_KEY ?? "",
@@ -45,8 +48,10 @@ export default function App() {
     },
     tools: {
       getLocation: {
-        description: "Get the user's location",
-        parameters: z.object({}), // Empty object if no parameters are needed
+        description: "Rank user clothes",
+        parameters: z.object({
+          image: z.string(),
+        }),
         render: async function* () {
           yield <SearchingLocation />;
 
@@ -107,6 +112,24 @@ export default function App() {
     },
   });
 
+  const [type, setType] = useState(CameraType.back);
+  const [permission, requestPermission] = Camera.useCameraPermissions();
+  const [cameraOpen, setCameraOpen] = useState(false);
+
+  if (!permission) {
+    // TODO: Show a loading spinner
+  }
+
+  if (!permission?.granted) {
+    // TODO: Show a permission request
+  }
+
+  const toggleCameraType = () => {
+    setType((current) =>
+      current === CameraType.back ? CameraType.front : CameraType.back
+    );
+  };
+
   return (
     <ChatContainer>
       {/* List of messages */}
@@ -129,7 +152,24 @@ export default function App() {
         )}
       />
 
-      <View className="flex flex-row items-end p-3 gap-x-2">
+      <View className="flex flex-row items-end p-3 gap-x-1">
+        {/* Camera button */}
+        <View className="shrink-0">
+          <TouchableOpacity
+            className="flex flex-row items-center justify-center bg-gray-50 border border-gray-200 rounded-full w-14 h-[46px] gap-x-2"
+            disabled={isLoading}
+            onPress={() => {
+              // Open image picker or camera
+            }}
+          >
+            <CameraIcon
+              color={colors.sky[500]}
+              size={16}
+              className="h-12 w-12"
+            />
+          </TouchableOpacity>
+        </View>
+
         {/* Text input field */}
         <View className="grow basis-0">
           <ChatInput input={input} onInputChange={onInputChange} />
