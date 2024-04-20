@@ -1,7 +1,7 @@
 import { FlatList } from "react-native";
 import { OpenAI, useChat } from "react-native-gen-ui";
 import { z } from "zod";
-import SearchingClothes from "../components/loaders/weather";
+import SearchingClothes from "../components/loaders/clothing";
 import React from "react";
 import ChatContainer from "../components/chat/chat-container";
 import ChatMessage from "../components/chat/chat-message";
@@ -76,6 +76,44 @@ export default function App() {
 
           const clothingRecommendation = await fetchRecommendations(
             args.searchQuery
+          );
+
+          return {
+            component: (
+              <Recommendations recommendations={clothingRecommendation} />
+            ),
+            data: {
+              recommendedItems: clothingRecommendation.map((item) => ({
+                name: item.name,
+                colour: item.colour,
+                brandName: item.brandName,
+                productType: item.productType,
+              })),
+            },
+          };
+        },
+      },
+      showDifferentClothingOnUserImage: {
+        description: `
+          Generate an image of the user with different clothing.
+          - remove
+        `,
+        parameters: z.object({
+          imageUrl: z.string().describe("The URL of the image to manipulate."),
+          remove: z
+            .string()
+            .describe("The clothing to remove. Separated by commas."),
+          replace: z
+            .string()
+            .describe(
+              "What should the removed clothing be replaced with. Separated by commas."
+            ),
+        }),
+        render: async function* (args) {
+          yield <SearchingClothes />;
+
+          const clothingRecommendation = await fetchRecommendations(
+            args.imageUrl
           );
 
           return {

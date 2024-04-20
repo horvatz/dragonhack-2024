@@ -41,7 +41,7 @@ const Recommendations = ({ recommendations }: RecommendationsProps) => {
       duration: 150,
       easing: Easing.inOut(Easing.ease),
     });
-    height.value = withTiming(320, {
+    height.value = withTiming(330, {
       duration: 300,
       easing: Easing.inOut(Easing.ease),
     });
@@ -90,7 +90,7 @@ const Recommendations = ({ recommendations }: RecommendationsProps) => {
                     source={{
                       uri: `https://${item.imageUrl}`,
                     }}
-                    contentFit="cover"
+                    contentFit="contain"
                   />
                 </View>
                 <View className="relative flex flex-col items-start justify-start w-full text-black grow gap-y-2">
@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
   image: {
     flex: 1,
     width: "100%",
-    backgroundColor: "#0553",
+    backgroundColor: "white",
   },
 });
 

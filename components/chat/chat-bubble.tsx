@@ -51,7 +51,7 @@ const ChatBubble = ({ message }: ChatBubbleProps) => {
   return (
     <View
       className={cn(
-        "relative rounded-3xl py-3 px-4",
+        "relative rounded-3xl py-3 px-4 overflow-hidden",
         message.role === "user"
           ? "bg-sky-500 self-end ml-14"
           : "bg-gray-200 self-start mr-14"
