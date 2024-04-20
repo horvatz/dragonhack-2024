@@ -1,4 +1,4 @@
-import { FlatList, TouchableOpacity, View } from "react-native";
+import { FlatList } from "react-native";
 import { OpenAI, useChat } from "react-native-gen-ui";
 import { z } from "zod";
 import SearchingLocation from "../components/loaders/searching-location";
@@ -8,15 +8,12 @@ import Weather from "../components/weather";
 import React, { useState } from "react";
 import { fetchWeatherData } from "../utils/fetch-weather-data";
 import { fetchLocation } from "../utils/fetch-reverse-geocode";
-import ChatInput from "../components/chat/chat-input";
-import ChatSubmitButton from "../components/chat/chat-submit-button";
 import ChatContainer from "../components/chat/chat-container";
 import ChatMessage from "../components/chat/chat-message";
 import { getDeviceLocation } from "../utils/get-device-location";
-import { Camera as CameraIcon } from "lucide-react-native";
-import colors from "tailwindcss/colors";
 import * as ImagePicker from "expo-image-picker";
 import { systemPrompt } from "../utils/constants";
+import ChatInput from "../components/chat/chat-input";
 
 const openAi = new OpenAI({
   apiKey: process.env.EXPO_PUBLIC_OPENAI_API_KEY ?? "",
@@ -141,7 +138,6 @@ export default function App() {
       quality: 1,
     });
 
-    console.log({ result });
     if (!result.canceled) {
       if (result.assets[0].base64) {
         // Set base64 of image
@@ -172,38 +168,14 @@ export default function App() {
           />
         )}
       />
-
-      <View className="flex flex-row items-end p-3 gap-x-1">
-        {/* Camera button */}
-        <View className="shrink-0">
-          <TouchableOpacity
-            className="flex flex-row items-center justify-center bg-gray-50 border border-gray-200 rounded-full w-14 h-[46px] gap-x-2"
-            disabled={isLoading}
-            onPress={openCamera}
-          >
-            <CameraIcon
-              color={colors.sky[500]}
-              size={16}
-              className="w-12 h-12"
-            />
-          </TouchableOpacity>
-        </View>
-
-        {/* Text input field */}
-        <View className="grow basis-0">
-          <ChatInput input={input} onInputChange={onInputChange} />
-        </View>
-
-        {/* Submit button */}
-        <View className="shrink-0">
-          <ChatSubmitButton
-            isLoading={isLoading}
-            isStreaming={isStreaming}
-            input={input}
-            handleSubmit={handleSubmit}
-          />
-        </View>
-      </View>
+      <ChatInput
+        input={input}
+        isStreaming={isStreaming}
+        isLoading={isLoading}
+        onCameraPress={openCamera}
+        onInputChange={onInputChange}
+        onSubmit={handleSubmit}
+      />
     </ChatContainer>
   );
 }
