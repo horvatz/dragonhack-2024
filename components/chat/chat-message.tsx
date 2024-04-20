@@ -55,12 +55,13 @@ const MessageContent = ({
   if (m.role === "system") {
     return null;
   } else if (m.role === "function") {
-    return (
-      <View style={{ opacity: 0.4 }}>
-        <Text>Only seen by the model:</Text>
-        <Text>{m.content?.toString()}</Text>
-      </View>
-    );
+    return null;
+    // return (
+    //   <View style={{ opacity: 0.4 }}>
+    //     <Text>Only seen by the model:</Text>
+    //     <Text>{m.content?.toString()}</Text>
+    //   </View>
+    // );
   }
 
   return <ChatBubble message={m} />;

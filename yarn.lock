@@ -6522,6 +6522,11 @@ react-is@^17.0.1:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-17.0.2.tgz#e691d4a8e9c789365655539ab372762b0efb54f0"
   integrity sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==
 
+react-native-animated-numbers@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/react-native-animated-numbers/-/react-native-animated-numbers-0.6.0.tgz#c34ef3bd9b412b9ad01d33de11c1567f23b5e5f6"
+  integrity sha512-HAzymaySeCHAQk3JjE052qiEJjVUj0lh5P8T3YUIinshZHjJrgv0dURak4MUr/La2UpGFbWnys4uDfgkGogarw==
+
 react-native-css-interop@0.0.36:
   version "0.0.36"
   resolved "https://registry.yarnpkg.com/react-native-css-interop/-/react-native-css-interop-0.0.36.tgz#ff87c9ab5cab72c4b24f0f6eed60ca95c31f0dc2"

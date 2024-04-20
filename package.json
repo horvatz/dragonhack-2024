@@ -26,6 +26,7 @@
     "nativewind": "^4.0.1",
     "react": "18.2.0",
     "react-native": "0.73.6",
+    "react-native-animated-numbers": "^0.6.0",
     "react-native-gen-ui": "^1.4.0",
     "react-native-maps": "1.10.0",
     "react-native-markdown-display": "^7.0.2",
