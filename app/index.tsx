@@ -5,7 +5,7 @@ import SearchingLocation from "../components/loaders/searching-location";
 import LocationMap from "../components/location-map";
 import LoadingWeather from "../components/loaders/weather";
 import Weather from "../components/weather";
-import React, { useState } from "react";
+import React from "react";
 import { fetchWeatherData } from "../utils/fetch-weather-data";
 import { fetchLocation } from "../utils/fetch-reverse-geocode";
 import ChatInput from "../components/chat/chat-input";
@@ -15,7 +15,7 @@ import ChatMessage from "../components/chat/chat-message";
 import { getDeviceLocation } from "../utils/get-device-location";
 import { Camera as CameraIcon } from "lucide-react-native";
 import colors from "tailwindcss/colors";
-import { Camera, CameraType } from "expo-camera";
+import * as ImagePicker from "expo-image-picker";
 
 const openAi = new OpenAI({
   apiKey: process.env.EXPO_PUBLIC_OPENAI_API_KEY ?? "",
@@ -112,22 +112,21 @@ export default function App() {
     },
   });
 
-  const [type, setType] = useState(CameraType.back);
-  const [permission, requestPermission] = Camera.useCameraPermissions();
-  const [cameraOpen, setCameraOpen] = useState(false);
+  const [image, setImage] = React.useState(null);
 
-  if (!permission) {
-    // TODO: Show a loading spinner
-  }
+  const openCamera = async () => {
+    // No need to manually handle permissions with expo-image-picker
+    let result = await ImagePicker.launchCameraAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
 
-  if (!permission?.granted) {
-    // TODO: Show a permission request
-  }
-
-  const toggleCameraType = () => {
-    setType((current) =>
-      current === CameraType.back ? CameraType.front : CameraType.back
-    );
+    if (!result.canceled) {
+      // setImage(result.uri);
+      console.log("Set image");
+    }
   };
 
   return (
@@ -158,9 +157,7 @@ export default function App() {
           <TouchableOpacity
             className="flex flex-row items-center justify-center bg-gray-50 border border-gray-200 rounded-full w-14 h-[46px] gap-x-2"
             disabled={isLoading}
-            onPress={() => {
-              // Open image picker or camera
-            }}
+            onPress={openCamera}
           >
             <CameraIcon
               color={colors.sky[500]}
