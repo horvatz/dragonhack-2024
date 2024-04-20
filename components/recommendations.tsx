@@ -41,7 +41,7 @@ const Recommendations = ({ recommendations }: RecommendationsProps) => {
       duration: 150,
       easing: Easing.inOut(Easing.ease),
     });
-    height.value = withTiming(350, {
+    height.value = withTiming(320, {
       duration: 300,
       easing: Easing.inOut(Easing.ease),
     });
@@ -53,9 +53,22 @@ const Recommendations = ({ recommendations }: RecommendationsProps) => {
       className="relative overflow-hidden rounded-2xl"
     >
       <View className="flex h-full">
-        <Text className="mb-4 text-xl font-semibold text-gray-800">
-          Recommendations
-        </Text>
+        <View className="flex flex-row items-center mb-4 gap-x-4">
+          <Image
+            style={{
+              width: 50,
+              height: 30,
+              marginTop: 1,
+            }}
+            source={{
+              uri: "https://1000logos.net/wp-content/uploads/2021/04/Asos-logo.png",
+            }}
+            contentFit="cover"
+          />
+          <Text className="-ml-2 text-xl font-semibold text-black">
+            Recommendations
+          </Text>
+        </View>
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
