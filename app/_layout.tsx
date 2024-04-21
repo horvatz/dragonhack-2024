@@ -11,7 +11,9 @@ const Layout = () => {
     <Stack
       screenOptions={{
         headerShown: false,
-        navigationBarColor: colors.gray[50],
+        // statusBarStyle: "dark",
+        // statusBarColor: colors.gray[100],
+        navigationBarColor: colors.gray[100],
       }}
     />
   );

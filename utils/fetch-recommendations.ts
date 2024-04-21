@@ -28,7 +28,7 @@ function listProductPayload(productDescription: string) {
       store: "US",
       offset: "0",
       q: productDescription,
-      limit: "3",
+      limit: "6",
       country: "US",
       sort: "freshness",
       currency: "USD",

@@ -51,10 +51,10 @@ const ChatBubble = ({ message }: ChatBubbleProps) => {
   return (
     <View
       className={cn(
-        "relative rounded-3xl py-3 px-4 overflow-hidden",
+        "relative rounded-3xl py-2 px-4",
         message.role === "user"
           ? "bg-sky-500 self-end ml-14"
-          : "bg-gray-200 self-start mr-14"
+          : "bg-[#E9E9EB] self-start mr-14"
       )}
     >
       {message.role === "user" ? (
@@ -63,13 +63,13 @@ const ChatBubble = ({ message }: ChatBubbleProps) => {
         </View>
       ) : (
         <View className="absolute -bottom-1 -left-1">
-          <BubbleTail color={colors.gray[200]} />
+          <BubbleTail color={"#E9E9EB"} />
         </View>
       )}
-      <View className="flex flex-col gap-y-4">
+      <View className="flex flex-col">
         {image && (
           <Image
-            className="w-20 rounded-2xl aspect-square"
+            className="self-end w-full my-2 rounded-2xl aspect-square"
             source={{ uri: image }}
           />
         )}

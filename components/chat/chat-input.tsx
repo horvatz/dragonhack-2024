@@ -29,7 +29,6 @@ const ChatInput = ({
   // Base64 of image
   const [image, setImage] = useState<string | null>(null);
   const [status, requestPermission] = ImagePicker.useCameraPermissions();
-  const { image: imageStore, setImage: setImageStore } = useImageStore();
 
   const openCamera = async () => {
     // Request permission to access camera if not already granted
@@ -57,47 +56,48 @@ const ChatInput = ({
   return (
     <View>
       <ScrollView
-        className="h-12"
+        className="h-12 mt-2"
         horizontal
+        bounces={false}
         showsHorizontalScrollIndicator={false}
-        contentContainerClassName="ml-4 flex flex-row justify-center items-center gap-x-2"
+        contentContainerClassName="mx-4 pr-8 flex flex-row justify-center items-center gap-x-2"
       >
         {/* Scrollable badges with fashion ocassions */}
         <Pressable
-          className="p-2 rounded-full bg-sky-500 w-28"
+          className="p-2 border rounded-full border-sky-400 w-28"
           onPress={() => setInput(getOcassionPrompt("formal"))}
         >
-          <Text className="font-bold text-center text-gray-50">Formal</Text>
+          <Text className="font-bold text-center text-sky-400">Formal</Text>
         </Pressable>
         <Pressable
-          className="p-2 rounded-full bg-sky-500 w-28"
+          className="p-2 border rounded-full border-sky-400 w-28"
           onPress={() => setInput(getOcassionPrompt("casual"))}
         >
-          <Text className="font-bold text-center text-gray-50">Casual</Text>
+          <Text className="font-bold text-center text-sky-400">Casual</Text>
         </Pressable>
         <Pressable
-          className="p-2 rounded-full bg-sky-500 w-28"
+          className="p-2 border rounded-full border-sky-400 w-28"
           onPress={() => setInput(getOcassionPrompt("party"))}
         >
-          <Text className="font-bold text-center text-gray-50">Party</Text>
+          <Text className="font-bold text-center text-sky-400">Party</Text>
         </Pressable>
         <Pressable
-          className="p-2 rounded-full bg-sky-500 w-28"
+          className="p-2 border rounded-full border-sky-400 w-28"
           onPress={() => setInput(getOcassionPrompt("work"))}
         >
-          <Text className="font-bold text-center text-gray-50">Work</Text>
+          <Text className="font-bold text-center text-sky-400">Work</Text>
         </Pressable>
       </ScrollView>
       <View className="flex flex-row items-end p-3 gap-x-1">
         {/* Camera button */}
         <View className="shrink-0">
           <TouchableOpacity
-            className="flex flex-row items-center justify-center bg-gray-50 border border-gray-200 rounded-full w-14 h-[46px] gap-x-2"
+            className="flex flex-row items-center justify-center bg-gray-50 border border-gray-200 rounded-full aspect-square h-[46px] gap-x-2"
             disabled={isLoading}
             onPress={openCamera}
           >
             <CameraIcon
-              color={colors.sky[500]}
+              color={colors.sky[400]}
               size={16}
               className="w-12 h-12"
             />
@@ -105,7 +105,7 @@ const ChatInput = ({
         </View>
 
         {/* Text input field */}
-        <View className="relative bg-white border border-gray-300 rounded-3xl grow basis-0">
+        <View className="relative bg-white border border-gray-200 rounded-3xl grow basis-0">
           {image && (
             <Image
               className="w-20 h-20 mx-4 mt-4 rounded-2xl"
@@ -122,8 +122,8 @@ const ChatInput = ({
             isStreaming={isStreaming}
             input={input}
             handleSubmit={() => {
+              useImageStore.getState().setImage(image);
               onSubmit(input, image);
-              setImageStore(image);
               setImage(null);
             }}
           />

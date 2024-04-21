@@ -100,7 +100,6 @@ export default function App() {
       showDifferentClothingOnUserImage: {
         description: `Generate an image of the user with different clothing.`,
         parameters: z.object({
-          imageUrl: z.string().describe("The URL of the image to manipulate."),
           remove: z
             .string()
             .describe("The clothing to remove. Separated by commas."),
@@ -120,7 +119,7 @@ export default function App() {
 
           const image = useImageStore.getState().image;
           console.log("Args: ", args);
-          console.log("Image: ", image);
+          console.log("Image: ", image?.slice(0, 40));
 
           const manipulatedImage = await manipulateImage({
             previousImageURL: image ?? undefined,

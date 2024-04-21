@@ -40,8 +40,8 @@ const ChatSubmitButton = ({
         />
       ) : (
         <>
-          <Send color={colors.sky[500]} size={16} />
-          <Text className="text-md text-sky-500">Send</Text>
+          <Send color={colors.sky[400]} size={16} />
+          <Text className="text-md text-sky-400">Send</Text>
         </>
       )}
     </TouchableOpacity>

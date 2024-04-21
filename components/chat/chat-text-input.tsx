@@ -11,8 +11,8 @@ const ChatTextInput = ({ input, onInputChange }: ChatTextInputProps) => {
   return (
     <TextInput
       className={cn(
-        Platform.OS === "ios" ? "py-4" : "py-2",
-        "px-5 min-h-[46px]"
+        Platform.OS === "ios" ? "py-4 min-h-[46px]" : "py-2 min-h-[44px]",
+        "px-5"
       )}
       multiline
       value={input}
