@@ -9,6 +9,8 @@ Virtual fashion assistant mobile app, designed to provide friendly and personali
 - Assistant will also provide **recommendations** to improve style
   - Recommendations are provided with products from [ASOS webstore](https://www.asos.com/)
 
+![Demo Gif](/docs/FashionBuddy%20-%20Demo.gif)
+
 ## Technologies used :books:
 
 - [React Native](https://reactnative.dev/) + [Expo](https://expo.dev/)
@@ -76,4 +78,4 @@ We are using following layout:
 
 ### Diagram
 
-TODO - paste diagram here
+![Architecture diagram](/docs/FashionBuddy%20-%20Diagram.png)

@@ -14,6 +14,7 @@ const MarkdownDisplay = memo(
         style={{
           ...styles,
           body: {
+            overflow: "hidden",
             color: textColor || "black",
           },
         }}

@@ -77,14 +77,18 @@ const ChatInput = ({
         </Pressable>
         <Pressable
           className="p-2 border rounded-full border-sky-400 w-28"
-          onPress={() => setInput("Give some recommendations for my outfit!")}
+          onPress={() =>
+            setInput(
+              "Can you give me some recommendations on where to buy this red Adidas tracksuit?"
+            )
+          }
         >
           <Text className="font-bold text-center text-sky-400">Recommend</Text>
         </Pressable>
         <Pressable
           className="p-2 border rounded-full border-sky-400 w-28"
           onPress={() =>
-            setInput("How would i look like in a red adidas tracksuit")
+            setInput("How would i look like in a red Adidas tracksuit")
           }
         >
           <Text className="font-bold text-center text-sky-400">Try it on!</Text>
