@@ -1,4 +1,4 @@
-import { FlatList } from "react-native";
+import { Dimensions, FlatList, View } from "react-native";
 import { OpenAI, useChat } from "react-native-gen-ui";
 import { z } from "zod";
 import SearchingClothes from "../components/loaders/clothing";
@@ -10,6 +10,10 @@ import ChatInput from "../components/chat/chat-input";
 import RatingBarchart from "../components/rating-barchart";
 import Recommendations from "../components/recommendations";
 import { fetchRecommendations } from "../utils/fetch-recommendations";
+import { manipulateImage } from "../utils/manipulate-clothing";
+import { Image } from "expo-image";
+import PaintingClothing from "../components/loaders/painting";
+import { useImageStore } from "../utils/image-store";
 
 const openAi = new OpenAI({
   apiKey: process.env.EXPO_PUBLIC_OPENAI_API_KEY ?? "",
@@ -34,7 +38,7 @@ export default function App() {
         role: "system",
       },
       {
-        content: "Hello, how can I help you today?",
+        content: "Hello, how can I help you dress today?",
         role: "assistant",
       },
     ],
@@ -94,10 +98,7 @@ export default function App() {
         },
       },
       showDifferentClothingOnUserImage: {
-        description: `
-          Generate an image of the user with different clothing.
-          - remove
-        `,
+        description: `Generate an image of the user with different clothing.`,
         parameters: z.object({
           imageUrl: z.string().describe("The URL of the image to manipulate."),
           remove: z
@@ -108,19 +109,44 @@ export default function App() {
             .describe(
               "What should the removed clothing be replaced with. Separated by commas."
             ),
+          negative: z
+            .string()
+            .describe(
+              "A negative image generation prompt. Separated by commas."
+            ),
         }),
         render: async function* (args) {
-          yield <SearchingClothes />;
+          yield <PaintingClothing />;
 
-          const clothingRecommendation = await fetchRecommendations(
-            args.imageUrl
-          );
+          const image = useImageStore.getState().image;
+          console.log("Args: ", args);
+          console.log("Image: ", image);
+
+          const manipulatedImage = await manipulateImage({
+            previousImageURL: image ?? undefined,
+            remove: args.remove,
+            replace: args.replace,
+            negative: args.negative,
+          });
 
           return {
             component: (
-              <Recommendations recommendations={clothingRecommendation} />
+              <Image
+                style={{
+                  borderRadius: 20,
+                  width: "100%",
+                  height: 400,
+                }}
+                source={{
+                  uri: manipulatedImage,
+                }}
+                contentFit="contain"
+              />
             ),
-            data: clothingRecommendation,
+            data: {
+              success: true,
+              imageUrl: manipulatedImage,
+            },
           };
         },
       },
@@ -148,6 +174,7 @@ export default function App() {
           />
         )}
       />
+      {/* Chat input */}
       <ChatInput
         input={input}
         setInput={onInputChange}

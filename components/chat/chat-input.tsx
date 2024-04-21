@@ -7,6 +7,7 @@ import ChatSubmitButton from "./chat-submit-button";
 import colors from "tailwindcss/colors";
 import * as ImagePicker from "expo-image-picker";
 import { getOcassionPrompt } from "../../utils/helpers";
+import { useImageStore } from "../../utils/image-store";
 
 interface ChatInputProps {
   input: string;
@@ -28,6 +29,7 @@ const ChatInput = ({
   // Base64 of image
   const [image, setImage] = useState<string | null>(null);
   const [status, requestPermission] = ImagePicker.useCameraPermissions();
+  const { image: imageStore, setImage: setImageStore } = useImageStore();
 
   const openCamera = async () => {
     // Request permission to access camera if not already granted
@@ -39,7 +41,7 @@ const ChatInput = ({
     const result = await ImagePicker.launchCameraAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       base64: true,
-      quality: 0,
+      quality: 0.5,
     });
 
     if (!result.canceled) {
@@ -62,28 +64,28 @@ const ChatInput = ({
       >
         {/* Scrollable badges with fashion ocassions */}
         <Pressable
-          className="bg-sky-500 rounded-full p-2 w-28"
+          className="p-2 rounded-full bg-sky-500 w-28"
           onPress={() => setInput(getOcassionPrompt("formal"))}
         >
-          <Text className="text-center text-gray-50 font-bold">Formal</Text>
+          <Text className="font-bold text-center text-gray-50">Formal</Text>
         </Pressable>
         <Pressable
-          className="bg-sky-500 rounded-full p-2 w-28"
+          className="p-2 rounded-full bg-sky-500 w-28"
           onPress={() => setInput(getOcassionPrompt("casual"))}
         >
-          <Text className="text-center text-gray-50 font-bold">Casual</Text>
+          <Text className="font-bold text-center text-gray-50">Casual</Text>
         </Pressable>
         <Pressable
-          className="bg-sky-500 rounded-full p-2 w-28"
+          className="p-2 rounded-full bg-sky-500 w-28"
           onPress={() => setInput(getOcassionPrompt("party"))}
         >
-          <Text className="text-center text-gray-50 font-bold">Party</Text>
+          <Text className="font-bold text-center text-gray-50">Party</Text>
         </Pressable>
         <Pressable
-          className="bg-sky-500 rounded-full p-2 w-28"
+          className="p-2 rounded-full bg-sky-500 w-28"
           onPress={() => setInput(getOcassionPrompt("work"))}
         >
-          <Text className="text-center text-gray-50 font-bold">Work</Text>
+          <Text className="font-bold text-center text-gray-50">Work</Text>
         </Pressable>
       </ScrollView>
       <View className="flex flex-row items-end p-3 gap-x-1">
@@ -121,6 +123,7 @@ const ChatInput = ({
             input={input}
             handleSubmit={() => {
               onSubmit(input, image);
+              setImageStore(image);
               setImage(null);
             }}
           />
