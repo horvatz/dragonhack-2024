@@ -144,7 +144,7 @@ export default function App() {
             ),
             data: {
               success: true,
-              imageUrl: manipulatedImage,
+              // imageUrl: manipulatedImage,
             },
           };
         },

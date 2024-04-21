@@ -79,7 +79,7 @@ const ChatInput = ({
           className="p-2 border rounded-full border-sky-400 w-28"
           onPress={() =>
             setInput(
-              "Can you give me some recommendations on where to buy this red Adidas tracksuit?"
+              "Can you give me some recommendations on what i could wear based on my style?"
             )
           }
         >
