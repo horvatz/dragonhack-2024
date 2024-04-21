@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "react-native-gen-ui-weather-example",
-    "slug": "react-native-gen-ui-weather-example",
+    "name": "fashion-buddy",
+    "slug": "fashion-buddy",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

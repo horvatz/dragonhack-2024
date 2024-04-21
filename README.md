@@ -51,6 +51,20 @@ yarn android    # To run app on Android
 yarn start      # To test app with Expo
 ```
 
+## Project structure :file_folder:
+
+A well-organized project structure is essential for efficient development.
+We are using following layout:
+
+```
+- app           # App screens or layout
+- assets        # Static files lives here (icons, images, etc..)
+- components    # UI components
+-dump           # Map for ASOS webstore categories
+- parser        # Parsing stuff for webstore products
+- utils         # Helper functions and API calls
+```
+
 ## Architecture :triangular_ruler:
 
 ### Flow
