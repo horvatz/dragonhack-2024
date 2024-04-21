@@ -8,6 +8,7 @@ import colors from "tailwindcss/colors";
 import * as ImagePicker from "expo-image-picker";
 import { getOcassionPrompt } from "../../utils/helpers";
 import { useImageStore } from "../../utils/image-store";
+import { wait } from "../../utils/wait";
 
 interface ChatInputProps {
   input: string;
@@ -44,11 +45,14 @@ const ChatInput = ({
     });
 
     if (!result.canceled) {
+      console.log("Image was taken");
       if (result.assets[0].base64) {
         // Set base64 of image
         const base64 = `data:image/jpeg;base64,${result.assets[0].base64}`;
-        console.log("Setting image");
+        console.log("Setting image: ", base64.slice(0, 50));
         setImage(base64);
+      } else {
+        console.log("Image not found: ", result.assets[0].base64?.slice(0, 50));
       }
     }
   };
@@ -63,6 +67,28 @@ const ChatInput = ({
         contentContainerClassName="mx-4 pr-8 flex flex-row justify-center items-center gap-x-2"
       >
         {/* Scrollable badges with fashion ocassions */}
+        <Pressable
+          className="p-2 border rounded-full border-sky-400 w-28"
+          onPress={() =>
+            setInput("What do you think about this outfit? Rate my style!")
+          }
+        >
+          <Text className="font-bold text-center text-sky-400">Rate me</Text>
+        </Pressable>
+        <Pressable
+          className="p-2 border rounded-full border-sky-400 w-28"
+          onPress={() => setInput("Give some recommendations for my outfit!")}
+        >
+          <Text className="font-bold text-center text-sky-400">Recommend</Text>
+        </Pressable>
+        <Pressable
+          className="p-2 border rounded-full border-sky-400 w-28"
+          onPress={() =>
+            setInput("How would i look like in a red adidas tracksuit")
+          }
+        >
+          <Text className="font-bold text-center text-sky-400">Try it on!</Text>
+        </Pressable>
         <Pressable
           className="p-2 border rounded-full border-sky-400 w-28"
           onPress={() => setInput(getOcassionPrompt("formal"))}
@@ -122,7 +148,13 @@ const ChatInput = ({
             isStreaming={isStreaming}
             input={input}
             handleSubmit={() => {
-              useImageStore.getState().setImage(image);
+              if (image) {
+                console.log(
+                  "Saving image to local storage: ",
+                  image?.slice(0, 40)
+                );
+                useImageStore.getState().setImage(image);
+              }
               onSubmit(input, image);
               setImage(null);
             }}
