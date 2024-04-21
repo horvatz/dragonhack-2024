@@ -27,8 +27,14 @@ const ChatInput = ({
 }: ChatInputProps) => {
   // Base64 of image
   const [image, setImage] = useState<string | null>(null);
+  const [status, requestPermission] = ImagePicker.useCameraPermissions();
 
   const openCamera = async () => {
+    // Request permission to access camera if not already granted
+    if (status?.status === "undetermined") {
+      await requestPermission();
+    }
+
     // No need to manually handle permissions with expo-image-picker
     const result = await ImagePicker.launchCameraAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
