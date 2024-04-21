@@ -1,13 +1,13 @@
-# Fashion clothing assistant :tshirt:
+# FashionBuddy :tshirt:
 
 _Dragonhack 2024 project by Rakete (Tim Vučina, Tjaž Eržen and Žan Horvat)_
 
-Virtual fashion assistant mobile app, designed to provide friendly and personalized style advice.
+Virtual fashion assistant mobile app, designed to provide friendly and personalized style advice with AI.
 
 - User can **upload an image** of their **outfit** and **ocassion**
 - Assistant will **rate it** (based on provided ocassion) offering feedback on style
 - Assistant will also provide **recommendations** to improve style
-  - Recommendations are provided with products from [ASOS webstore](https://website-name.com)
+  - Recommendations are provided with products from [ASOS webstore](https://www.asos.com/)
 
 ## Technologies used :books:
 
@@ -15,6 +15,7 @@ Virtual fashion assistant mobile app, designed to provide friendly and personali
 - [Typescript](https://www.typescriptlang.org/)
 - [NativeWind](https://www.nativewind.dev/) (for styling)
 - [Supabase](https://supabase.com/) (for image bucket store)
+- [react-native-gen-ui](https://github.com/zerodays/react-native-gen-ui)
 
 ## APIs used :earth_americas:
 
@@ -52,4 +53,13 @@ yarn start      # To test app with Expo
 
 ## Architecture :triangular_ruler:
 
-TODO
+### Flow
+
+1. Get image of **user outfit**
+2. Send the image data to Supabase bucket for storage, process image with OpenAI API
+3. Get rating for user outfit, get outift recommendations using **OpenAI Functions** and external API call
+4. Display the results and recommendations in the app's UI (using Generative UI) for the user to view and interact with.
+
+### Diagram
+
+TODO - paste diagram here
